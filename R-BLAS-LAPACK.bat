@@ -35,7 +35,7 @@ if "%~1"=="" (
 )
 
 rem R executable location
-set "R_BIN=%~1bin\x64"
+set "R_BIN=%~1\bin\x64"
 
 if "%2"=="" (
 	set CPU=R

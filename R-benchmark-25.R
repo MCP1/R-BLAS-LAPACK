@@ -30,7 +30,7 @@
 runs <- 3			# Number of times the tests are executed
 times <- rep(0, 15); dim(times) <- c(5,3)
 require(Matrix)		# Optimized matrix operations
-require(SuppDists)	# Optimized random number generators
+#require(SuppDists)	# Optimized random number generators
 #Runif <- rMWC1019	# The fast uniform number generator
 Runif <- runif
 # If you don't have SuppDists, you can use: Runif <- runif
@@ -39,7 +39,7 @@ Runif <- runif
 # If you don't have SuppDists, you can use: Rnorm <- rnorm
 #b <- rziggurat(10, new.start=TRUE)	# Init. the generator
 Rnorm <- rnorm
-remove("a", "b")
+#remove("a", "b")
 options(object.size=100000000)
 
 cat("\n\n   R Benchmark 2.5\n")
