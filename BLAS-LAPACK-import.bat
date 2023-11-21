@@ -10,8 +10,12 @@ rem *************************************************************
 rem  BLAS-LAPACK-IMPORT.BAT
 rem  Copy required files from AMD AOCL and Intel MKL
 rem  Required installed software:
-rem  Intel OneAPI Base Toolkit (64 bit, MKL option only)
-rem  AMD AOCL (Windows 64-bit binary package)
+rem  Intel OneAPI Math Kernel Library (64 bit)
+rem  AMD AOCL BLIS (Windows package, BLIS/libFLAME libraries only)
+rem
+rem  Tested for: 
+rem		Intel OneAPI MKL 2024.0.0 (Jul 2023)
+rem		AMD AOCL 4.1 (Aug 2023)
 rem *************************************************************
 
 rem base package locations
@@ -43,8 +47,8 @@ if "%1"=="" (
 
 :amd_path
 
-set INTEL_COMP=%INTEL_BASE%\compiler\latest\windows\redist\intel64_win\compiler
-set INTEL_MKLB=%INTEL_BASE%\mkl\latest\redist\intel64
+set INTEL_COMP=%INTEL_BASE%\compiler\latest\bin
+set INTEL_MKLB=%INTEL_BASE%\mkl\latest\bin
 
 if "%2"=="" (
 		if exist "%AMD_BASE%\amd-blis" (
@@ -65,10 +69,10 @@ set AMD_BLIS=%AMD_BASE%\amd-blis\lib\LP64
 set AMD_FLAME=%AMD_BASE%\amd-libflame\lib\LP64
 
 if "%3"=="" (
-	if not exist "%~dp0\Lib" (
-		mkdir "%~dp0\Lib"
+	if not exist "%~dp0\lib" (
+		mkdir "%~dp0\lib"
 	)
-	set "LIB_DEST=%~dp0\Lib"
+	set "LIB_DEST=%~dp0\lib"
 ) else (
 	set "LIB_DEST=%3"
 )
@@ -77,21 +81,16 @@ if "%3"=="" (
 
 echo Intel libraries...
 XCOPY %OPT% "%INTEL_COMP%\libiomp5md.dll" %LIB_DEST%\
-XCOPY %OPT% "%INTEL_MKLB%\1033\mkl_msg.dll" %LIB_DEST%\1033\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_intel_thread.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_sequential.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_rt.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_core.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_def.2.dll" %LIB_DEST%\
-XCOPY %OPT% "%INTEL_MKLB%\mkl_mc.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_mc3.2.dll" %LIB_DEST%\
-XCOPY %OPT% "%INTEL_MKLB%\mkl_avx.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_avx2.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_avx512.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_vml_def.2.dll" %LIB_DEST%\
-XCOPY %OPT% "%INTEL_MKLB%\mkl_vml_mc.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_vml_mc3.2.dll" %LIB_DEST%\
-XCOPY %OPT% "%INTEL_MKLB%\mkl_vml_avx.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_vml_avx2.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_vml_avx512.2.dll" %LIB_DEST%\
 XCOPY %OPT% "%INTEL_MKLB%\mkl_vml_cmpt.2.dll" %LIB_DEST%\

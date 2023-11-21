@@ -43,7 +43,7 @@ if "%2"=="" (
 	set CPU=%2
 )
 
-set "LIB_DIR=%~dp0Lib"
+set "LIB_DIR=%~dp0lib"
 
 if "%3"=="" (
 	if exist "%LIB_DIR%" goto import

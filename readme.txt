@@ -13,8 +13,9 @@ BLAS-LAPACK-import.bat
 ----------------------
 
 BLAS-LAPACK-import.bat extracts the required dynamic libraries from the official
-installations of Intel OneAPI MKL and AMD AOCL (required only for AMD Ryzen
-processors). After extraction, the original packages can be uninstalled.
+installations of Intel OneAPI Math Kernel Library (MKL) and AMD AOCL BLIS and
+libFLAME libraries (required only for AMD EPYC/Ryzen processors). After
+extraction, the original packages can be uninstalled.
 
 If OneAPI MKL and AOCL are installed on the default locations, the script
 should be able to find them. If not, one may pass the locations to the script
@@ -23,7 +24,7 @@ command line:
  BLAS-LAPACK-import [ONEAPI_DIR] [AOCL_DIR] [LIB_DIR]
 
 If no LIB_DIR destination directory is supplied, the extraction is done to the
-"Lib" subdirectory of the directory containing the script.
+"lib" subdirectory of the directory containing the script.
 
 
 R-BLAS-LAPACK.bat
@@ -35,9 +36,9 @@ R-BLAS-LAPACK.bat configures the BLAS/LAPACK used by R in Windows. It can take
  R-BLAS-LAPACK R_DIR [R,Intel,AMD] [LIB_DIR]
 
 The first argument, the R installation directory (R_DIR) for the version being
-modified, must be provided (e.g. "C:\Program Files\R\R-4.3.0"). Quotes are
+modified, must be provided (e.g. "C:\Program Files\R\R-4.3.2"). Quotes are
 required if the path contains spaces. If R_DIR is in the default location
-(e.g. "C:\Program Files\R\R-4.3.0"), the command above must be run in a
+(e.g. "C:\Program Files\R\R-4.3.2"), the command above must be run in a
 administrative terminal/command prompt.
 
 The second argument can be one of: "R", to revert to the original R libraries;
