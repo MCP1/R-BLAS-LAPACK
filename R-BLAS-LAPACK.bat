@@ -25,12 +25,14 @@ rem argument
 if "%~1"=="/?" (
 	echo Change R BLAS/LAPACK libraries
 	echo Usage: R-BLAS-LAPACK R_DIR [R,Intel,AMD] [LIB_DIR]
+	pause
 	goto end
 )
 
 if "%~1"=="" (
 	echo ERROR: R destination directory must be provided
 	echo Usage: R-BLAS-LAPACK R_DIR [R,Intel,AMD] [LIB_DIR]
+	pause
 	goto end
 )
 
