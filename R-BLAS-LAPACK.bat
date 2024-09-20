@@ -36,6 +36,13 @@ if "%~1"=="" (
 	goto end
 )
 
+rem check admin rights
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+	echo ERROR: administrator rights required to run
+	goto end
+)
+
 rem R executable location
 set "R_BIN=%~1\bin\x64"
 
@@ -176,14 +183,33 @@ setLocal EnableDelayedExpansion
 set "SUBPATH=!SYSPATH:%LIB_DIR%=!"
 
 if not "%SUBPATH%"=="%SYSPATH%" set LIB_DIR=
+set "NEWPATH=%SYSPATH%;!LIB_DIR!"
+
+call :strLen NEWPATH LEN
+if %LEN% gtr 1024 (
+	echo WARNING: cannot change PATH to include "!LIB_DIR!"
+	echo Please update the PATH environment variable manually to include it
+	goto end
+)
 
 rem add to path if possible
 if not "!LIB_DIR!"=="" (
 	if not "%SYSPATH%"=="" (
-		setx path "%SYSPATH%;!LIB_DIR!" /M > nul
+		setx path "%NEWPATH%" /M > nul
 	) else (
-		echo ERROR: could not add to PATH: "%LIB_DIR%"
+		echo ERROR: could not add to PATH: "!LIB_DIR!"
 	)
 )
 
 :end
+
+exit /B
+
+:strLen strVar [rtnVar]
+setlocal disableDelayedExpansion
+set LEN=0
+if defined %~1 for /f "delims=:" %%N in (
+  '"(cmd /v:on /c echo(!%~1!&echo()|findstr /o ^^"'
+) do set /a "LEN=%%N-3"
+endlocal & if "%~2" neq "" (set %~2=%LEN%) else echo %LEN%
+exit /b
